@@ -1,15 +1,14 @@
+<div>
+  <ul>
+  <button (click) = "startGame()">Start Game</button>
+  <button (click) = "getLines()">Refresh</button>
+  <button (click) = "getTurn()">Current Turn {{turn}}</button>
+  <button>Position Selected {{originPos}} , {{targetPos}}</button>
+  </ul>
+  <ng-container *ngFor = "let tile of tiles; let i = index" >
 
-<p>
-  {{title}}
-</p>
+          <span *ngIf = "i %8 == 0 && i != 0"><br></span>
+          <button title = {{tile}} [ngClass] ="lines[i] ?  lines[i].pieceState ?  lines[i].pieceState.pieceType + '_' + lines[i].pieceState.color : 'aa' : 'aa1'"(click) = "movement(lines[i])"></button>
+  </ng-container>
 
-<h1>
-  "h1" {{result}}
-</h1>
-<button (click) ="getResult()"></button>
-<div *ngFor = "let post of results | async">
-  {{post}}
-</div>
-<div >
-  {{post | json}}
 </div>

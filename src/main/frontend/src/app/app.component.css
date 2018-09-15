@@ -7,63 +7,63 @@ button {
 }
 
 
-button[title = "whiteTile"] {
-     background-color : grey;
-     z-index: 1;
-}
+/*button[title = "whiteTile"] {*/
+     /*background-color : grey;*/
+     /*z-index: 1;*/
+/*}*/
 
-button[title = "blackTile"] {
-    background-color : brown;
-    z-index: 1;
-}
+/*button[title = "blackTile"] {*/
+    /*background-color : brown;*/
+    /*z-index: 1;*/
+/*}*/
 
-button:hover {
-     background-color : coral;
-}
+/*button:hover {*/
+     /*background-color : coral;*/
+/*}*/
 
 
-.aa {
+/*.aa {*/
 
-}
-button.PAWN_WHITE{
-    color : red;
-    background-image: url(/assets/img/whitePawn.png);
-     background-repeat: no-repeat;
-     background-position: top;
-     background-size: 50px;
-     opacity : 0.9;
-     z-index: -1;
-}
+/*}*/
+/*button.PAWN_WHITE{*/
+    /*color : red;*/
+    /*background-image: url(/assets/img/whitePawn.png);*/
+     /*background-repeat: no-repeat;*/
+     /*background-position: top;*/
+     /*background-size: 50px;*/
+     /*opacity : 0.9;*/
+     /*z-index: -1;*/
+/*}*/
 
-button.PAWN_BLACK{
-    color : red;
-    background-image: url(/assets/img/blackPawn.png);
-     background-repeat: no-repeat;
-     background-position: top;
-     background-size: 50px;
-     opacity : 0.9;
-     z-index: -1;
-}
+/*button.PAWN_BLACK{*/
+    /*color : red;*/
+    /*background-image: url(/assets/img/blackPawn.png);*/
+     /*background-repeat: no-repeat;*/
+     /*background-position: top;*/
+     /*background-size: 50px;*/
+     /*opacity : 0.9;*/
+     /*z-index: -1;*/
+/*}*/
 
-button.BISHOP_WHITE{
-        color : red;
-        background-image: url(/assets/img/whiteBishop.png);
-         background-repeat: no-repeat;
-         background-position: top;
-         background-size: 50px;
-         opacity : 0.9;
-         z-index: -1;
-}
+/*button.BISHOP_WHITE{*/
+        /*color : red;*/
+        /*background-image: url(/assets/img/whiteBishop.png);*/
+         /*background-repeat: no-repeat;*/
+         /*background-position: top;*/
+         /*background-size: 50px;*/
+         /*opacity : 0.9;*/
+         /*z-index: -1;*/
+/*}*/
 
-button.BISHOP_BLACK{
-            color : red;
-            background-image: url(/assets/img/blackBishop.png);
-             background-repeat: no-repeat;
-             background-position: top;
-             background-size: 50px;
-             opacity : 0.9;
-             z-index: -1;
-}
+/*button.BISHOP_BLACK{*/
+            /*color : red;*/
+            /*background-image: url(/assets/img/blackBishop.png);*/
+             /*background-repeat: no-repeat;*/
+             /*background-position: top;*/
+             /*background-size: 50px;*/
+             /*opacity : 0.9;*/
+             /*z-index: -1;*/
+/*}*/
 
 
 

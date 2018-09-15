@@ -1,81 +1,42 @@
-<!--The content below is only a placeholder and can be replaced.-->
+
 <!--<div style="text-align:center">-->
 
-<!--<ul>-->
-  <!--<br>-->
-  <!--<button (click) = "startGame()">Start Game</button>-->
-  <!--<button (click) = "getPosts()">GetPosts</button>-->
-  <!--<button (click) = "getTurn()">{{turn}}</button>-->
-  <!--<button>{{originPos}} , {{targetPos}}</button>-->
-  <!--<div>-->
-    <!--<ng-container *ngFor = "let post of line1 | async ; odd as isOdd; even as isEven">-->
-      <!--<button title = "blackTile" *ngIf="isOdd" [ngClass] ="post.pieceState ? post.pieceState.pieceType + '_' + post.pieceState.color : 'aa'"(click) = "movement(post)"></button>-->
-      <!--<button title = "whiteTile" *ngIf="isEven"[ngClass] ="post.pieceState ? post.pieceState.pieceType + '_' + post.pieceState.color : 'aa'"(click) = "movement(post)"></button>-->
-  <!--</ng-container>-->
-  <!--<br>-->
-    <!--<ng-container *ngFor = "let post of line2 | async ; odd as isOdd; even as isEven">-->
-      <!--<button title = "whiteTile" *ngIf="isOdd" [ngClass] ="post.pieceState ? post.pieceState.pieceType + '_' + post.pieceState.color : 'aa'"(click) = "movement(post)"></button>-->
-      <!--<button title = "blackTile" *ngIf="isEven"[ngClass] ="post.pieceState ? post.pieceState.pieceType + '_' + post.pieceState.color : 'aa'"(click) = "movement(post)"></button>-->
-  <!--</ng-container>-->
+  <!--<ul>-->
     <!--<br>-->
-    <!--<ng-container *ngFor = "let post of line3 | async ; odd as isOdd; even as isEven">-->
-      <!--<button title = "blackTile" *ngIf="isOdd" [ngClass] ="post.pieceState ? post.pieceState.pieceType + '_' + post.pieceState.color : 'aa'"(click) = "movement(post)"></button>-->
-      <!--<button title = "whiteTile" *ngIf="isEven"[ngClass] ="post.pieceState ? post.pieceState.pieceType + '_' + post.pieceState.color : 'aa'"(click) = "movement(post)"></button>-->
-    <!--</ng-container>-->
-    <!--<br>-->
-    <!--<ng-container *ngFor = "let post of line4 | async ; odd as isOdd; even as isEven">-->
-       <!--<button title = "whiteTile" *ngIf="isOdd" [ngClass] ="post.pieceState ? post.pieceState.pieceType + '_' + post.pieceState.color : 'aa'"(click) = "movement(post)"></button>-->
-      <!--<button title = "blackTile" *ngIf="isEven" [ngClass] ="post.pieceState ? post.pieceState.pieceType + '_' + post.pieceState.color : 'aa'"(click) = "movement(post)"></button>-->
-    <!--</ng-container>-->
-    <!--<br>-->
-    <!--<ng-container *ngFor = "let post of line5 | async ; odd as isOdd; even as isEven">-->
-      <!--<button title = "blackTile" *ngIf="isOdd" [ngClass] ="post.pieceState ? post.pieceState.pieceType + '_' + post.pieceState.color : 'aa'"(click) = "movement(post)"></button>-->
-      <!--<button title = "whiteTile" *ngIf="isEven"[ngClass] ="post.pieceState ? post.pieceState.pieceType + '_' + post.pieceState.color : 'aa'"(click) = "movement(post)"></button>-->
-    <!--</ng-container>-->
-    <!--<br>-->
-    <!--<ng-container *ngFor = "let post of line6 | async ; odd as isOdd; even as isEven">-->
-      <!--<button title = "whiteTile" *ngIf="isOdd" [ngClass] ="post.pieceState ? post.pieceState.pieceType + '_' + post.pieceState.color : 'aa'" (click) = "movement(post)"></button>-->
-      <!--<button title = "blackTile" *ngIf="isEven"[ngClass] ="post.pieceState ? post.pieceState.pieceType + '_' + post.pieceState.color : 'aa'" (click) = "movement(post)"></button>-->
-    <!--</ng-container>-->
-    <!--<br>-->
-    <!--<ng-container *ngFor = "let post of line7 | async ; odd as isOdd; even as isEven">-->
-      <!--<button title = "blackTile" *ngIf="isOdd" [ngClass] ="post.pieceState ? post.pieceState.pieceType + '_' + post.pieceState.color : 'aa'" (click) = "movement(post)"></button>-->
-      <!--<button title = "whiteTile" *ngIf="isEven"[ngClass] ="post.pieceState ? post.pieceState.pieceType + '_' + post.pieceState.color : 'aa'" (click) = "movement(post)"></button>-->
-    <!--</ng-container>-->
-    <!--<br>-->
-    <!--<ng-container *ngFor = "let post of line8 | async ; odd as isOdd; even as isEven">-->
-      <!--<button title = "whiteTile" *ngIf="isOdd"  [ngClass] ="post.pieceState ? post.pieceState.pieceType + '_' + post.pieceState.color : 'aa'" (click) = "movement(post)"></button>-->
-      <!--<button title = "blackTile" *ngIf="isEven" [ngClass] ="post.pieceState ? post.pieceState.pieceType + '_' + post.pieceState.color : 'aa'" (click) = "movement(post)"></button>-->
+    <!--<button (click) = "startGame()">Start Game</button>-->
+    <!--<button (click) = "getLines()">Refresh</button>-->
+    <!--<button (click) = "getTurn()">Current Turn {{turn}}</button>-->
+    <!--<button>Position Selected {{originPos}} , {{targetPos}}</button>-->
+    <!--<div>-->
+      <!--<ng-container *ngFor = "let post of lines | async ; odd as isOdd; even as isEven; let i = index" [attr.data-index]="i">-->
+        <!--<span *ngIf = "(i >= 0 && i < 8) || (i >= 16 && i < 24) ||(i >= 32 && i < 40) || (i >= 48 && i < 56)">-->
+          <!--<span *ngIf = "i %8 == 0"><br></span>-->
+          <!--<button title = "blackTile" *ngIf="i % 2 == 0" [ngClass] ="post.pieceState ? post.pieceState.pieceType + '_' + post.pieceState.color : 'aa'"(click) = "movement(post)">{{i}}</button>-->
+          <!--<button title = "whiteTile" *ngIf="i % 2 != 0"  [ngClass] ="post.pieceState ? post.pieceState.pieceType + '_' + post.pieceState.color : 'aa'"(click) = "movement(post)">{{i}}</button>-->
+        <!--</span>-->
+        <!--<span *ngIf = "(i >= 8 && i < 16) || (i >= 24 && i < 32) ||(i >= 40 && i < 48) || (i >= 56 && i < 64)">-->
+          <!--<span *ngIf = "i %8 == 0"><br></span>-->
+          <!--<button title = "whiteTile" *ngIf="i % 2 == 0" [ngClass] ="post.pieceState ? post.pieceState.pieceType + '_' + post.pieceState.color : 'aa'"(click) = "movement(post)">{{i}}</button>-->
+          <!--<button title = "blackTile" *ngIf="i % 2 != 0"  [ngClass] ="post.pieceState ? post.pieceState.pieceType + '_' + post.pieceState.color : 'aa'"(click) = "movement(post)">{{i}}</button>-->
+        <!--</span>-->
+      <!--</ng-container>-->
+      <!--<app-tile></app-tile>-->
+    <!--</div>-->
 
-    <!--</ng-container>-->
-  <!--</div>-->
-
-<!--</ul>-->
+  <!--</ul>-->
 <!--</div>-->
+
+
 <div style="text-align:center">
 
   <ul>
     <br>
-    <button (click) = "startGame()">Start Game</button>
-    <button (click) = "getLines()">Refresh</button>
-    <button (click) = "getTurn()">Current Turn {{turn}}</button>
-    <button>Position Selected {{originPos}} , {{targetPos}}</button>
+
     <div>
-      <ng-container *ngFor = "let post of lines | async ; odd as isOdd; even as isEven; let i = index" [attr.data-index]="i">
-        <span *ngIf = "(i >= 0 && i < 8) || (i >= 16 && i < 24) ||(i >= 32 && i < 40) || (i >= 48 && i < 56)">
-          <span *ngIf = "i %8 == 0"><br></span>
-          <button title = "blackTile" *ngIf="i % 2 == 0" [ngClass] ="post.pieceState ? post.pieceState.pieceType + '_' + post.pieceState.color : 'aa'"(click) = "movement(post)">{{i}}</button>
-          <button title = "whiteTile" *ngIf="i % 2 != 0"  [ngClass] ="post.pieceState ? post.pieceState.pieceType + '_' + post.pieceState.color : 'aa'"(click) = "movement(post)">{{i}}</button>
-        </span>
-        <span *ngIf = "(i >= 8 && i < 16) || (i >= 24 && i < 32) ||(i >= 40 && i < 48) || (i >= 56 && i < 64)">
-          <span *ngIf = "i %8 == 0"><br></span>
-          <button title = "whiteTile" *ngIf="i % 2 == 0" [ngClass] ="post.pieceState ? post.pieceState.pieceType + '_' + post.pieceState.color : 'aa'"(click) = "movement(post)">{{i}}</button>
-          <button title = "blackTile" *ngIf="i % 2 != 0"  [ngClass] ="post.pieceState ? post.pieceState.pieceType + '_' + post.pieceState.color : 'aa'"(click) = "movement(post)">{{i}}</button>
-        </span>
-      </ng-container>
+
+        <app-tile></app-tile>
 
     </div>
 
   </ul>
 </div>
-
