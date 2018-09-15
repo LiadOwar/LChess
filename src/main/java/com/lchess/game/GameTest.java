@@ -6,7 +6,9 @@ import com.lchess.engine.board.Board;
 import com.lchess.engine.board.BoardManager;
 import com.lchess.engine.board.Position;
 import com.lchess.engine.board.Tile;
+import com.lchess.engine.piece.model.KingState;
 import com.lchess.engine.piece.model.PieceState;
+import com.lchess.engine.piece.view.Piece;
 import com.lchess.engine.piece.view.PieceColorEnum;
 import com.lchess.engine.test.utils.TestUtils;
 
@@ -316,6 +318,7 @@ public class GameTest {
     }
 
 
+
     private static void tempMoveWhiteBishop1UpLeftTest() {
         String methodName = "tempMoveWhiteBishop1UpLeftTest";
 
@@ -344,6 +347,50 @@ public class GameTest {
         }
         printBoardDebug();
     }
+
+    private static void isWhiteKingThreatenedTest(){
+        String methodName = "isWhiteKingThreatenedTest";
+        Game game = new GameImpl();
+        game.startGame();
+        Position whitePawnOrigin = new Position('B', 2);
+        Position whitePawnDest = new Position('B', 3);
+
+        Position blackPawnOrigin = new Position('E', 7);
+        Position blackPawnDest = new Position('E', 6);
+
+        Position whitePawnOrigin2 = new Position('B', 3);
+        Position whitePawnDest2 = new Position('B', 4);
+
+        Position blackBishopOrigin = new Position('F', 8);
+        Position blackBishopDest = new Position('B', 4);
+
+
+        game.movePiece(whitePawnOrigin, whitePawnDest);
+        game.movePiece(blackPawnOrigin, blackPawnDest);
+        game.movePiece(whitePawnOrigin2, whitePawnDest2);
+        game.movePiece(blackBishopOrigin, blackBishopDest);
+
+        HashMap<Position, PieceState> expectedBoardPositionMap = TestUtils.getExpectedInitBoardPositionsMap();
+        TestUtils.setExpectedPosition(expectedBoardPositionMap, whitePawnOrigin,whitePawnDest);
+        TestUtils.setExpectedPosition(expectedBoardPositionMap, blackPawnOrigin,blackPawnDest);
+        TestUtils.setExpectedPosition(expectedBoardPositionMap, whitePawnOrigin2, whitePawnDest2);
+        TestUtils.setExpectedPosition(expectedBoardPositionMap, blackBishopOrigin, blackPawnDest);
+
+        KingState whiteKingState = (KingState)(boardManager.getTileFromPosition(blackPawnDest).getPieceState());
+        if (!whiteKingState.isUnderThreat()){
+            logger.printTestFailed(methodName, "White king is not under threat as i should be!");
+        }
+
+        if (isBoardMetExpectaions(methodName, expectedBoardPositionMap)){
+            logger.printTestPass(methodName);
+        }
+        else {
+            logger.printTestFailed(methodName, "tile on board not as expected");
+        }
+        printBoardDebug();
+    }
+
+
 
     private static void printBoardDebug() {
         ConsoleUI consoleUI = new ConsoleUI();

@@ -28,4 +28,6 @@ public class PieceMovementManagerImpl implements PieceMovementManager {
         Position destination = path.get(path.size() - 1);
         return destination;
     }
+
+
 }

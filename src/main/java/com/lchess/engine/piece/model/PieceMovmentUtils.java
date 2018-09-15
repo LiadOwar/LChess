@@ -114,4 +114,61 @@ public class PieceMovmentUtils {
         ret = new Position(updatedCoordinate);
         return ret;
     }
+
+    public static Position moveLeft(Position origin, PieceColorEnum color, int numMoves) {
+        Position ret;
+        char xPos = origin.getPosition().getxPos();
+        switch (color){
+            case WHITE:
+                xPos -= numMoves;
+                break;
+
+            case BLACK:
+                xPos += numMoves;
+                break;
+            default:
+                break;
+        }
+        ChessCoordinate updatedCoordinate = new ChessCoordinate(xPos, origin.getPosition().getyPos());
+        ret = new Position(updatedCoordinate);
+        return ret;
+    }
+
+    public static Position moveRight(Position origin, PieceColorEnum color, int numMoves) {
+        Position ret;
+        char xPos = origin.getPosition().getxPos();
+        switch (color){
+            case WHITE:
+                xPos += numMoves;
+                break;
+
+            case BLACK:
+                xPos -= numMoves;
+                break;
+            default:
+                break;
+        }
+        ChessCoordinate updatedCoordinate = new ChessCoordinate(xPos, origin.getPosition().getyPos());
+        ret = new Position(updatedCoordinate);
+        return ret;
+    }
+
+    public static Position moveBack(Position origin, PieceColorEnum colorEnum, int numMoves){
+        Position ret;
+        int yPos = origin.getPosition().getyPos();
+        switch (colorEnum){
+            case WHITE:
+                yPos -= numMoves;
+                break;
+
+            case BLACK:
+                yPos += numMoves;
+                break;
+            default:
+                break;
+        }
+        ChessCoordinate updatedCoordinate = new ChessCoordinate(origin.getPosition().getxPos(), yPos);
+        ret = new Position(updatedCoordinate);
+        return ret;
+    }
 }

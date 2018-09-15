@@ -9,6 +9,7 @@ import com.lchess.engine.piece.view.PieceColorEnum;
 import com.lchess.engine.piece.view.PieceTypeEnum;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 
@@ -112,6 +113,8 @@ public class BoardManager {
                 return new PawnModel();
             case BISHOP:
                 return new BishopModel();
+            case KING:
+                return new KingModel();
 
                 default: return null;
         }
@@ -131,6 +134,12 @@ public class BoardManager {
         if (correctPath == null){
             return false;
         }
+
+        //Check if friendlyKing will be underThreate
+
+        //Check if move will result threat enemy king
+
+
         movePieceToDestination(originTile, pieceState, destinationTile);
         if (pieceState.getPieceType() == PieceTypeEnum.PAWN){
             PawnState pawnState = (PawnState)pieceState;
@@ -242,11 +251,13 @@ public class BoardManager {
     private  void arrangeWhitePieces() {
         arrangePawns(PieceColorEnum.WHITE);
         arrangeBishops(PieceColorEnum.WHITE);
+        arrangeKings(PieceColorEnum.WHITE);
     }
 
     private  void arrangeBlackPieces() {
         arrangePawns(PieceColorEnum.BLACK);
         arrangeBishops(PieceColorEnum.BLACK);
+        arrangeKings(PieceColorEnum.BLACK);
     }
 
     private void arrangePawns(PieceColorEnum colorEnum){
@@ -294,6 +305,23 @@ public class BoardManager {
 
     }
 
+    private void arrangeKings(PieceColorEnum colorEnum){
+        Position position1 = null;
+        Position position2 = null;
+        switch (colorEnum){
+            case WHITE: {
+                position1 = new Position('E', 1);
+                break;
+            }
+            case BLACK:
+                position1 = new Position('E', 8);
+                break;
+        }
+
+        KingState kingState = new KingState(colorEnum);
+        setPieceOnBoard(kingState, position1, board);
+    }
+
 
     private static void movePieceToDestination(Tile originTile, PieceState pieceState, Tile destinationTile) {
 
@@ -326,6 +354,50 @@ public class BoardManager {
         }
     }
 
+    private Boolean isPathAttackKing(PieceMovementPath pieceMovementPath, PieceColorEnum pieceColorEnum) {
+        Tile kingTile = getKingTile(board, pieceColorEnum);
+
+        if (isTileOnPath(kingTile, pieceMovementPath)){
+            System.out.println(String.format("[%] king is treatened by", pieceColorEnum.toString(), pieceMovementPath.getPathStartingPosition(pieceMovementPath)));
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
+    private Tile getKingTile(Board board, PieceColorEnum pieceColorEnum) {
+        Tile kingTile = null;
+        Tile[] tiles = board.getTiles();
+        for (int i = 0 ; i < tiles.length ; i++) {
+            Tile currentTIle = tiles[i];
+            PieceState currentPieceState = currentTIle.getPieceState();
+
+            if (currentPieceState == null){
+                continue;
+            }
+            PieceTypeEnum currentPieceType = currentTIle.getPieceState().getPieceType();
+            PieceColorEnum currentPieceColor = currentTIle.getPieceState().getColor();
+            if (currentPieceType.equals(PieceTypeEnum.KING) && currentPieceColor.equals(pieceColorEnum)){
+                kingTile = currentTIle;
+                break;
+            }
+        }
+        return kingTile;
+    }
+
+    public Boolean isTileOnPath(Tile tile, PieceMovementPath pieceMovementPath){
+        String methodName = "isTileOnPath";
+        ArrayList<Position> path = pieceMovementPath.getPath();
+
+        for (Position position : path) {
+            Tile tileFromPosition = getTileFromPosition(position);
+            if (tile.getPosition() == tileFromPosition.getPosition()) {
+                return true;
+            }
+        }
+        return false;
+    }
 
 
 }

@@ -121,6 +121,14 @@ public class ConsoleUI extends UI {
                 } else {
                     ret = "b";
                 }
+                break;
+            case KING:
+                if (pieceState.getColor().equals(PieceColorEnum.WHITE)){
+                    ret = "K";
+                } else {
+                    ret = "k";
+                }
+                break;
         }
         return ret;
     }

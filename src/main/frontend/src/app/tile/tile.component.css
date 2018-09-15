@@ -33,7 +33,6 @@ button.PAWN_WHITE{
   background-repeat: no-repeat;
   background-position: top;
   background-size: 50px;
-  opacity : 0.9;
   z-index: -1;
 }
 
@@ -43,7 +42,6 @@ button.PAWN_BLACK{
   background-repeat: no-repeat;
   background-position: top;
   background-size: 50px;
-  opacity : 0.9;
   z-index: -1;
 }
 
@@ -53,7 +51,6 @@ button.BISHOP_WHITE{
   background-repeat: no-repeat;
   background-position: top;
   background-size: 50px;
-  opacity : 0.9;
   z-index: -1;
 }
 
@@ -63,7 +60,24 @@ button.BISHOP_BLACK{
   background-repeat: no-repeat;
   background-position: top;
   background-size: 50px;
-  opacity : 0.9;
+  z-index: -1;
+}
+
+button.KING_BLACK{
+  color : red;
+  background-image: url(/assets/img/blackKing.png);
+  background-repeat: no-repeat;
+  background-position: top;
+  background-size: 50px;
+  z-index: -1;
+}
+
+button.KING_WHITE{
+  color : red;
+  background-image: url(/assets/img/whiteKing.png);
+  background-repeat: no-repeat;
+  background-position: top;
+  background-size: 50px;
   z-index: -1;
 }
 

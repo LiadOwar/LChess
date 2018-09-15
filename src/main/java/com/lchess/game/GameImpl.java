@@ -21,7 +21,7 @@ public class GameImpl implements Game {
     private PieceColorEnum turn;
     @Override
     public void startGame() {
-//        boardManager = BoardManager.getInstanse();
+        boardManager = BoardManager.getInstanse();
         boardManager.resetBoard();
         board = boardManager.getBoard();
 
