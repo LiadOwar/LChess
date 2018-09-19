@@ -115,6 +115,8 @@ public class BoardManager {
                 return new BishopModel();
             case KING:
                 return new KingModel();
+            case TURRET:
+                return new TurretModel();
 
                 default: return null;
         }
@@ -252,12 +254,14 @@ public class BoardManager {
         arrangePawns(PieceColorEnum.WHITE);
         arrangeBishops(PieceColorEnum.WHITE);
         arrangeKings(PieceColorEnum.WHITE);
+        arrangeTurrets(PieceColorEnum.WHITE);
     }
 
     private  void arrangeBlackPieces() {
         arrangePawns(PieceColorEnum.BLACK);
         arrangeBishops(PieceColorEnum.BLACK);
         arrangeKings(PieceColorEnum.BLACK);
+        arrangeTurrets(PieceColorEnum.BLACK);
     }
 
     private void arrangePawns(PieceColorEnum colorEnum){
@@ -320,6 +324,29 @@ public class BoardManager {
 
         KingState kingState = new KingState(colorEnum);
         setPieceOnBoard(kingState, position1, board);
+    }
+
+    private void arrangeTurrets(PieceColorEnum colorEnum) {
+        Position position1 = null;
+        Position position2 = null;
+        switch (colorEnum){
+            case WHITE: {
+                position1 = new Position('A', 1);
+                position2 = new Position('H', 1);
+                break;
+            }
+            case BLACK:
+                position1 = new Position('A', 8);
+                position2 = new Position('H', 8);
+                break;
+        }
+
+        TurretState turret1State = new TurretState(colorEnum);
+        TurretState turret2State = new TurretState(colorEnum);
+
+        setPieceOnBoard(turret1State, position1, board);
+        setPieceOnBoard(turret2State, position2, board);
+
     }
 
 

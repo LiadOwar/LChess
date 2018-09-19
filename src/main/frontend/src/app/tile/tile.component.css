@@ -81,5 +81,23 @@ button.KING_WHITE{
   z-index: -1;
 }
 
+button.TURRET_WHITE{
+  color : red;
+  background-image: url(/assets/img/whiteCastel.png);
+  background-repeat: no-repeat;
+  background-position: top;
+  background-size: 50px;
+  z-index: -1;
+}
+
+button.TURRET_BLACK{
+  color : red;
+  background-image: url(/assets/img/blackCastel.png);
+  background-repeat: no-repeat;
+  background-position: top;
+  background-size: 50px;
+  z-index: -1;
+}
+
 
 

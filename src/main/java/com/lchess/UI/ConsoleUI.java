@@ -129,6 +129,13 @@ public class ConsoleUI extends UI {
                     ret = "k";
                 }
                 break;
+            case TURRET:
+                if (pieceState.getColor().equals(PieceColorEnum.WHITE)){
+                    ret = "T";
+                } else {
+                    ret = "t";
+                }
+                break;
         }
         return ret;
     }
