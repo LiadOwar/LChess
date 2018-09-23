@@ -25,7 +25,7 @@ public class TurretModel extends PieceModel {
         generateForwardPath(origin, turretState, ret);
         generateBackwardsPath(origin, turretState, ret);
         generateLeftPath(origin, turretState, ret);
-        generateRightath(origin, turretState, ret);
+        generateRighPath(origin, turretState, ret);
 
         return ret;
     }
@@ -81,7 +81,7 @@ public class TurretModel extends PieceModel {
         }
     }
 
-    private void generateRightath(Position origin, TurretState turretState, PieceMovementInfo ret) {
+    private void generateRighPath(Position origin, TurretState turretState, PieceMovementInfo ret) {
         for (int i = 0; i < 7; i++) {
             PieceMovementPath tempPath = new PieceMovementPath(origin);
             char tempXpos = origin.getPosition().getxPos();
