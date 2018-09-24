@@ -398,15 +398,15 @@ public class GameTest {
     }
 
     public static void main(String[] args){
-//        startGameTest();
-//        getInitialTurnTest();
-//        getTurnOnLegalMoveTest();
-//        getTurnOnIllegalMoveTest();
-//        moveBlackPawnOnWhitesTurnTest();
-//        positionOfIllegalTurnMovePieceTest();
-//        positionOfIllegalMovePieceTest();
-//        tempMoveWhiteBishopTest();
-//        tempMoveWhiteBishop1UpLeftTest();
+        startGameTest();
+        getInitialTurnTest();
+        getTurnOnLegalMoveTest();
+        getTurnOnIllegalMoveTest();
+        moveBlackPawnOnWhitesTurnTest();
+        positionOfIllegalTurnMovePieceTest();
+        positionOfIllegalMovePieceTest();
+        tempMoveWhiteBishopTest();
+        tempMoveWhiteBishop1UpLeftTest();
 
         tempMoveWhiteBishopDownLeftTest();
         tempMoveWhiteBishopDownRightTest();

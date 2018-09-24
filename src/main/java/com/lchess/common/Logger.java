@@ -1,5 +1,7 @@
 package com.lchess.common;
 
+import org.springframework.stereotype.Component;
+
 /**
  * Created by liad on 31/08/2018.
  */

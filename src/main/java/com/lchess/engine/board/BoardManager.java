@@ -7,6 +7,7 @@ import com.lchess.engine.piece.services.PieceMovementManager;
 import com.lchess.engine.piece.services.PieceMovementManagerImpl;
 import com.lchess.engine.piece.view.PieceColorEnum;
 import com.lchess.engine.piece.view.PieceTypeEnum;
+import javafx.geometry.Pos;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -123,7 +124,7 @@ public class BoardManager {
 
     }
 
-    public static Boolean tryMovePieceOnTheBoard(Position origin, Position destenation){
+    public Boolean tryMovePieceOnTheBoard(Position origin, Position destenation){
         Tile originTile = BoardUtils.getTileFromPosition(origin);
         Tile destinationTile = BoardUtils.getTileFromPosition(destenation);
 
@@ -139,16 +140,82 @@ public class BoardManager {
 
         //Check if friendlyKing will be underThreate
 
-        //Check if move will result threat enemy king
-
-
         movePieceToDestination(originTile, pieceState, destinationTile);
         if (pieceState.getPieceType() == PieceTypeEnum.PAWN){
             PawnState pawnState = (PawnState)pieceState;
             pawnState.setFirstMove(false);
         }
+        //Check if move will result threat enemy king
+        getPieceWhoThreatsKing(pieceState);
         return true;
+    }
+
+    public Tile getPieceWhoThreatsKing(PieceState pieceState) {
+        ArrayList<Tile> allLivePiecesByColor = getAllLivePiecesByColor(pieceState.getColor());
+        Tile enemyKingTile = getEnemyKingTile(pieceState.getColor());
+        for (Tile tile : allLivePiecesByColor){
+            PieceMovementPath pathToEnemyKing = getPathToDestination(tile.getPosition(), enemyKingTile.getPosition());
+            if (pathToEnemyKing != null){
+                KingState enemyKingState = (KingState) enemyKingTile.getPieceState();
+                System.out.println(String.format("[%s] king is threatened by [%s] [%s] at [%s]", enemyKingState.getColor(), tile.getPieceState().getColor(), tile.getPieceState().getPieceType(), tile.getPosition()));
+                enemyKingState.setUnderThreat(true);
+                return tile;
+            }
         }
+        return null;
+    }
+
+    private static Tile getEnemyKingTile(PieceColorEnum friendlyColor) {
+        PieceColorEnum opositeColor = getOpositeColor(friendlyColor);
+        ArrayList<Tile> allLivePiecesByColor = getAllLivePiecesByColor(opositeColor);
+        Tile kingTile = findKing(allLivePiecesByColor);
+        return kingTile;
+
+    }
+
+    private static Tile findKing(ArrayList<Tile> allLivePiecesByColor) {
+        for (Tile tile : allLivePiecesByColor){
+            if (tile.getPieceState().getPieceType().equals(PieceTypeEnum.KING)){
+                return tile;
+            }
+        }
+        System.out.println("ERROR. no king was found");
+        return null;
+
+    }
+
+    private static PieceColorEnum getOpositeColor(PieceColorEnum friendlyColor) {
+        PieceColorEnum ret = PieceColorEnum.WHITE;
+        if (friendlyColor.equals(PieceColorEnum.WHITE)){
+            ret = PieceColorEnum.BLACK;
+        }
+        else {
+            ret = PieceColorEnum.WHITE;
+        }
+        return ret;
+    }
+
+    private PieceMovementPath getPathToDestination(Position origin, Position destination){
+        Tile originTile = BoardUtils.getTileFromPosition(origin);
+
+        PieceState pieceState = originTile.getPieceState();
+        PieceModel pieceModel = getPieceModel(pieceState);
+        PieceMovementInfo pieceMovementInfo = pieceModel.getPieceMovementInfo(origin, pieceState);
+        HashSet<PieceMovementPath> allowedPaths = pieceMovementInfo.getAllowedPaths();
+
+        PieceMovementPath correctPath = pieceMovementManager.findPathToDestination(allowedPaths, origin, destination);
+       return correctPath;
+    }
+    private static ArrayList<Tile> getAllLivePiecesByColor(PieceColorEnum color) {
+        Tile[] tiles = getBoard().getTiles();
+        ArrayList<Tile> ret = new ArrayList<>();
+        for (int i = 0 ; i < tiles.length ; i++){
+            if (tiles[i].getPieceState() != null && tiles[i].getPieceState().getColor().equals(color)){
+                ret.add(tiles[i]);
+            }
+        }
+        return ret;
+    }
 
     public boolean checkIfCanMoveToPosition(PieceMovementPath path, Position position) {
         Position startPosition = path.getPathStartingPosition(path);
@@ -208,7 +275,7 @@ public class BoardManager {
                 }
             }
             if (xPos != borderedXpos){
-                System.out.println("PAWN cannot move diagonally without attack");
+                System.out.println(String.format("PAWN cannot move diagonally without attack: from, [%s, %s] to [%s, %s]", xPos, yPos, borderedXpos ,borderedYpos ));
                 return false;
             }
 

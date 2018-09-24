@@ -2,15 +2,12 @@ package com.lchess.engine.test.utils;
 
 import com.lchess.common.Logger;
 import com.lchess.engine.board.*;
-import com.lchess.engine.piece.model.BishopState;
-import com.lchess.engine.piece.model.PawnState;
-import com.lchess.engine.piece.model.PieceState;
+import com.lchess.engine.piece.model.*;
 import com.lchess.engine.piece.model.pojo.PieceMovementInfo;
 import com.lchess.engine.piece.model.pojo.PieceMovementPath;
 import com.lchess.engine.piece.view.PieceColorEnum;
 import com.lchess.game.Game;
 import com.lchess.game.GameImpl;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -111,8 +108,18 @@ public class TestUtils {
         setTestExcpectedBlackPawnsOnBoard(expectedInitBoardPositionMap);
         setTestExcpectedWhiteBishopsOnBoard(expectedInitBoardPositionMap);
         setTestExcpectedBlackBishopsOnBoard(expectedInitBoardPositionMap);
+        setTestExcpectedKingsOnBoard(expectedInitBoardPositionMap);
+        setExpectedTurretsOnBoard(expectedInitBoardPositionMap);
         return expectedInitBoardPositionMap;
 
+    }
+
+    private static void setTestExcpectedKingsOnBoard(HashMap<Position, PieceState> expectedInitBoardPositionMap) {
+        Position startPosition1 = new Position('E', 1);
+        Position startPosition2 = new Position('E', 8);
+
+        expectedInitBoardPositionMap.put(startPosition1, new KingState(PieceColorEnum.WHITE));
+        expectedInitBoardPositionMap.put(startPosition2, new KingState(PieceColorEnum.BLACK));
     }
 
     private static void setTestExcpectedWhiteBishopsOnBoard(HashMap<Position, PieceState> expectedInitBoardPositionMap) {
@@ -170,4 +177,16 @@ public class TestUtils {
     }
 
 
+    public static void setExpectedTurretsOnBoard(HashMap<Position,PieceState> expectedInitBoardPositionMap) {
+        Position whiteTurretPosition1 = new Position('A', 1);
+        Position whiteTurretPosition2 = new Position('H', 1);
+
+        Position blackTurretPosition1 = new Position('A', 8);
+        Position blackTurretPosition2 = new Position('H', 8);
+
+        expectedInitBoardPositionMap.put(whiteTurretPosition1, new TurretState(PieceColorEnum.WHITE));
+        expectedInitBoardPositionMap.put(whiteTurretPosition2, new TurretState(PieceColorEnum.WHITE));
+        expectedInitBoardPositionMap.put(blackTurretPosition1, new TurretState(PieceColorEnum.BLACK));
+        expectedInitBoardPositionMap.put(blackTurretPosition2, new TurretState(PieceColorEnum.BLACK));
+    }
 }

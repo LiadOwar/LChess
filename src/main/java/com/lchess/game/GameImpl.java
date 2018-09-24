@@ -9,6 +9,7 @@ import com.lchess.engine.piece.view.PieceColorEnum;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+
 /**
  * Created by liad on 01/09/2018.
  */
@@ -26,6 +27,9 @@ public class GameImpl implements Game {
         board = boardManager.getBoard();
 
         turn = PieceColorEnum.WHITE;
+    }
+
+    public GameImpl() {
     }
 
     public BoardManager getBoardManager() {
