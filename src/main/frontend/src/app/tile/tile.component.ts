@@ -36,10 +36,7 @@ export class TileComponent {
         currentTileColor = 'black';
       }
       this.tiles[i] = currentTileColor;
-
     }
-
-
   }
   getTurn() {
     this.turn = this.http.get(this.ROOT_URL + '/game/turn', {observe: 'response'})
