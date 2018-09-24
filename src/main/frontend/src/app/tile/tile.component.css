@@ -99,5 +99,14 @@ button.TURRET_BLACK{
   z-index: -1;
 }
 
+button._threats{
+  color : red;
+  background-color : deepskyblue;
+  background-repeat: no-repeat;
+  background-position: top;
+  background-size: 50px;
+  z-index: -1;
+}
+
 
 

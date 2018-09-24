@@ -8,7 +8,7 @@
   <ng-container *ngFor = "let tile of tiles; let i = index" >
 
           <span *ngIf = "i %8 == 0 && i != 0"><br></span>
-          <button title = {{tile}} [ngClass] ="lines[i] ?  lines[i].pieceState ?  lines[i].pieceState.pieceType + '_' + lines[i].pieceState.color : 'aa' : 'aa1'"(click) = "movement(lines[i])"></button>
+          <button title = {{tile}} [ngClass] ="[lines[i] ?  lines[i].pieceState ?  lines[i].pieceState.pieceType + '_' + lines[i].pieceState.color  : 'aa' : 'aa1', lines[i]? lines[i].pieceState ? lines[i].pieceState.threatEnemyKing  : 'aa' : 'aa1']"(click) = "movement(lines[i])"></button>
   </ng-container>
 
 </div>

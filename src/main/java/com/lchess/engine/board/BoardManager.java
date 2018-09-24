@@ -146,28 +146,62 @@ public class BoardManager {
             pawnState.setFirstMove(false);
         }
         //Check if move will result threat enemy king
-        getPieceWhoThreatsKing(pieceState);
+        getPieceWhoThreatsKing();
         return true;
     }
 
-    public Tile getPieceWhoThreatsKing(PieceState pieceState) {
-        ArrayList<Tile> allLivePiecesByColor = getAllLivePiecesByColor(pieceState.getColor());
-        Tile enemyKingTile = getEnemyKingTile(pieceState.getColor());
-        for (Tile tile : allLivePiecesByColor){
-            PieceMovementPath pathToEnemyKing = getPathToDestination(tile.getPosition(), enemyKingTile.getPosition());
+    public Tile getPieceWhoThreatsKing() {
+        ArrayList<Tile> allLiveWhitePiecesByColor = getAllLivePiecesByColor(PieceColorEnum.WHITE);
+        ArrayList<Tile> allLiveBlackPiecesByColor = getAllLivePiecesByColor(PieceColorEnum.BLACK);
+        Tile whiteKingTile = getKingTile(PieceColorEnum.WHITE);
+        Tile blackKingTile = getKingTile(PieceColorEnum.BLACK);
+        Tile tile = getWhitePieceTileWithPathToBlackKing(allLiveWhitePiecesByColor, blackKingTile);
+        if (tile != null) {
+            return tile;
+        }
+        else tile = getBlackPieceTileWithPathToWhiteKing(allLiveBlackPiecesByColor, whiteKingTile);
+        if (tile != null) {
+            return tile;
+        }
+        return null;
+    }
+
+    private Tile getWhitePieceTileWithPathToBlackKing(ArrayList<Tile> allLiveWhitePiecesByColor, Tile blackKingTile) {
+        for (Tile tile : allLiveWhitePiecesByColor){
+            PieceMovementPath pathToEnemyKing = getPathToDestination(tile.getPosition(), blackKingTile.getPosition());
             if (pathToEnemyKing != null){
-                KingState enemyKingState = (KingState) enemyKingTile.getPieceState();
+                KingState enemyKingState = (KingState) blackKingTile.getPieceState();
                 System.out.println(String.format("[%s] king is threatened by [%s] [%s] at [%s]", enemyKingState.getColor(), tile.getPieceState().getColor(), tile.getPieceState().getPieceType(), tile.getPosition()));
                 enemyKingState.setUnderThreat(true);
+                tile.getPieceState().setThreatEnemyKing(true);
                 return tile;
+            }
+            else {
+                tile.getPieceState().setThreatEnemyKing(false);
             }
         }
         return null;
     }
 
-    private static Tile getEnemyKingTile(PieceColorEnum friendlyColor) {
-        PieceColorEnum opositeColor = getOpositeColor(friendlyColor);
-        ArrayList<Tile> allLivePiecesByColor = getAllLivePiecesByColor(opositeColor);
+    private Tile getBlackPieceTileWithPathToWhiteKing(ArrayList<Tile> allLiveBlackPiecesByColor, Tile blackKingTile) {
+        for (Tile tile : allLiveBlackPiecesByColor){
+            PieceMovementPath pathToEnemyKing = getPathToDestination(tile.getPosition(), blackKingTile.getPosition());
+            if (pathToEnemyKing != null){
+                KingState enemyKingState = (KingState) blackKingTile.getPieceState();
+                System.out.println(String.format("[%s] king is threatened by [%s] [%s] at [%s]", enemyKingState.getColor(), tile.getPieceState().getColor(), tile.getPieceState().getPieceType(), tile.getPosition()));
+                enemyKingState.setUnderThreat(true);
+                tile.getPieceState().setThreatEnemyKing(true);
+                return tile;
+            }
+            else {
+                tile.getPieceState().setThreatEnemyKing(false);
+            }
+        }
+        return null;
+    }
+
+    private static Tile getKingTile(PieceColorEnum color) {
+        ArrayList<Tile> allLivePiecesByColor = getAllLivePiecesByColor(color);
         Tile kingTile = findKing(allLivePiecesByColor);
         return kingTile;
 

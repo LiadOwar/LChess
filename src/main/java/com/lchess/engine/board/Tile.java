@@ -2,8 +2,6 @@ package com.lchess.engine.board;
 
 import com.lchess.engine.piece.model.PieceState;
 
-import java.awt.*;
-
 /**
  * Created by liad on 31/08/2018.
  */

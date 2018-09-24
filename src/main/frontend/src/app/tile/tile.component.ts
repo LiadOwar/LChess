@@ -75,10 +75,20 @@ export class TileComponent {
   getAll() {
     this.http.get(this.ROOT_URL + '/game', {observe: 'response'}).subscribe(resp => {
       for (let i = 0 ; i < 64 ; i++) {
+        if (resp.body[i].pieceState != null) {
+          if (resp.body[i].pieceState.threatEnemyKing === false) {
+            resp.body[i].pieceState.threatEnemyKing = '';
+          }  else if (resp.body[i].pieceState.threatEnemyKing === true) {
+            resp.body[i].pieceState.threatEnemyKing = '_threats';
+          }
+          console.log('resp ' + resp.body[i].pieceState.threatEnemyKing);
+        }
         this.lines[i] = resp.body[i];
-      }
-    });
+        ;
+    }});
   }
+
+
 
 
   getLines() {

@@ -15,6 +15,16 @@ public abstract class PieceState {
 
     private PieceColorEnum color;
 
+    private Boolean isThreatEnemyKing = false;
+
+    public Boolean getThreatEnemyKing() {
+        return isThreatEnemyKing;
+    }
+
+    public void setThreatEnemyKing(Boolean isThreatEnemyKing) {
+        this.isThreatEnemyKing = isThreatEnemyKing;
+    }
+
     public PieceState(PieceColorEnum color) {
         isAlive = true;
         this.color = color;
