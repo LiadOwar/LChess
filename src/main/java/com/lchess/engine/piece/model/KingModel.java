@@ -40,7 +40,7 @@ public class KingModel extends PieceModel {
         Position currentPosition;
 
         currentPosition  = PieceMovmentUtils.moveForward(origin, kingState.getColor(), 1);
-        if (!pathManager.tryAddPositionToPath(tempPath, currentPosition)){
+        if (!pathManager.tryAddPositionToPath(tempPath, currentPosition).getSuccess()){
             return;
         }
         pieceMovementInfo.tryAddPath(tempPath);
@@ -51,7 +51,7 @@ public class KingModel extends PieceModel {
         Position currentPosition;
 
         currentPosition  = PieceMovmentUtils.moveLeft(origin, kingState.getColor(), 1);
-        if (!pathManager.tryAddPositionToPath(tempPath, currentPosition)){
+        if (!pathManager.tryAddPositionToPath(tempPath, currentPosition).getSuccess()){
             return;
         }
         pieceMovementInfo.tryAddPath(tempPath);
@@ -62,7 +62,7 @@ public class KingModel extends PieceModel {
         Position currentPosition;
 
         currentPosition  = PieceMovmentUtils.moveRight(origin, kingState.getColor(), 1);
-        if (!pathManager.tryAddPositionToPath(tempPath, currentPosition)){
+        if (!pathManager.tryAddPositionToPath(tempPath, currentPosition).getSuccess()){
             return;
         }
         pieceMovementInfo.tryAddPath(tempPath);
@@ -73,7 +73,7 @@ public class KingModel extends PieceModel {
         Position currentPosition;
 
         currentPosition  = PieceMovmentUtils.moveBack(origin, kingState.getColor(), 1);
-        if (!pathManager.tryAddPositionToPath(tempPath, currentPosition)){
+        if (!pathManager.tryAddPositionToPath(tempPath, currentPosition).getSuccess()){
             return;
         }
         pieceMovementInfo.tryAddPath(tempPath);
@@ -84,7 +84,7 @@ public class KingModel extends PieceModel {
         Position currentPosition;
 
         currentPosition  = PieceMovmentUtils.moveDiagonalUpLeft(origin, kingState.getColor(), 1);
-        if (!pathManager.tryAddPositionToPath(tempPath, currentPosition)){
+        if (!pathManager.tryAddPositionToPath(tempPath, currentPosition).getSuccess()){
             return;
         }
         pieceMovementInfo.tryAddPath(tempPath);
@@ -95,7 +95,7 @@ public class KingModel extends PieceModel {
         Position currentPosition;
 
         currentPosition  = PieceMovmentUtils.moveDiagonalUpRight(origin, kingState.getColor(), 1);
-        if (!pathManager.tryAddPositionToPath(tempPath, currentPosition)){
+        if (!pathManager.tryAddPositionToPath(tempPath, currentPosition).getSuccess()){
             return;
         }
         pieceMovementInfo.tryAddPath(tempPath);
@@ -106,7 +106,7 @@ public class KingModel extends PieceModel {
         Position currentPosition;
 
         currentPosition  = PieceMovmentUtils.moveDiagonalDownLeft(origin, kingState.getColor(), 1);
-        if (!pathManager.tryAddPositionToPath(tempPath, currentPosition)){
+        if (!pathManager.tryAddPositionToPath(tempPath, currentPosition).getSuccess()){
             return;
         }
         pieceMovementInfo.tryAddPath(tempPath);
@@ -117,7 +117,7 @@ public class KingModel extends PieceModel {
         Position currentPosition;
 
         currentPosition  = PieceMovmentUtils.moveDiagonalDownRight(origin, kingState.getColor(), 1);
-        if (!pathManager.tryAddPositionToPath(tempPath, currentPosition)){
+        if (!pathManager.tryAddPositionToPath(tempPath, currentPosition).getSuccess()){
             return;
         }
         pieceMovementInfo.tryAddPath(tempPath);

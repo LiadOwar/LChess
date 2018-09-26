@@ -1,4 +1,10 @@
 
+@-webkit-keyframes greenPulse {
+  from { background-color: #ffff00; -webkit-box-shadow: 0 0 9px #333; }
+  50% { background-color: #ff8000; -webkit-box-shadow: 0 0 18px #91bd09; }
+  to { background-color: #ffff00; -webkit-box-shadow: 0 0 9px #333; }
+}
+
 button {
   width: 70px;
   height: 70px;
@@ -100,12 +106,9 @@ button.TURRET_BLACK{
 }
 
 button._threats{
-  color : red;
-  background-color : deepskyblue;
-  background-repeat: no-repeat;
-  background-position: top;
-  background-size: 50px;
-  z-index: -1;
+  -webkit-animation-name: greenPulse;
+  -webkit-animation-duration: 2s;
+  -webkit-animation-iteration-count: infinite;
 }
 
 

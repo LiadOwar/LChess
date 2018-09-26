@@ -30,15 +30,21 @@ public class BishopModel extends PieceModel {
     }
 
     private void generateDiagonalUpLeftPath(Position origin, BishopState bishopState, PieceMovementInfo ret) {
+
         for (int i =0 ; i < 7; i++){
             PieceMovementPath tempPath = new PieceMovementPath(origin);
             char tempXpos = origin.getPosition().getxPos();
             int tempYpos = origin.getPosition().getyPos();
             Position currentPosition = new Position(tempXpos, tempYpos);
-
+            AddPositionToPathResult result;
             for (int j = 0 ; j <= i ; j++){
                 currentPosition  = PieceMovmentUtils.moveDiagonalUpLeft(currentPosition, bishopState.getColor(), 1);
-                if (!pathManager.tryAddPositionToPath(tempPath, currentPosition)){
+                result = pathManager.tryAddPositionToPath(tempPath, currentPosition);
+                if (!result.getSuccess()){
+                    return;
+                }
+                if (result.getLastPositionOccupiedByEnemyPiece()){
+                    ret.tryAddPath(tempPath);
                     return;
                 }
             }
@@ -53,9 +59,15 @@ public class BishopModel extends PieceModel {
             int tempYpos = origin.getPosition().getyPos();
             Position currentPosition = new Position(tempXpos, tempYpos);
 
+            AddPositionToPathResult result;
             for (int j = 0 ; j <= i ; j++){
                 currentPosition  = PieceMovmentUtils.moveDiagonalDownLeft(currentPosition, bishopState.getColor(), 1);
-                if (!pathManager.tryAddPositionToPath(tempPath, currentPosition)){
+                result = pathManager.tryAddPositionToPath(tempPath, currentPosition);
+                if (!result.getSuccess()){
+                    return;
+                }
+                if (result.getLastPositionOccupiedByEnemyPiece()){
+                    ret.tryAddPath(tempPath);
                     return;
                 }
             }
@@ -70,9 +82,15 @@ public class BishopModel extends PieceModel {
             int tempYpos = origin.getPosition().getyPos();
             Position currentPosition = new Position(tempXpos, tempYpos);
 
+            AddPositionToPathResult result;
             for (int j = 0 ; j <= i ; j++){
                 currentPosition  = PieceMovmentUtils.moveDiagonalDownRight(currentPosition, bishopState.getColor(), 1);
-                if (!pathManager.tryAddPositionToPath(tempPath, currentPosition)){
+                result = pathManager.tryAddPositionToPath(tempPath, currentPosition);
+                if (!result.getSuccess()){
+                    return;
+                }
+                if (result.getLastPositionOccupiedByEnemyPiece()){
+                    ret.tryAddPath(tempPath);
                     return;
                 }
             }
@@ -87,9 +105,15 @@ public class BishopModel extends PieceModel {
             int tempYpos = origin.getPosition().getyPos();
             Position currentPosition = new Position(tempXpos, tempYpos);
 
+            AddPositionToPathResult result;
             for (int j = 0 ; j <= i ; j++){
                 currentPosition  = PieceMovmentUtils.moveDiagonalUpRight(currentPosition, bishopState.getColor(), 1);
-                if (!pathManager.tryAddPositionToPath(tempPath, currentPosition)){
+                result = pathManager.tryAddPositionToPath(tempPath, currentPosition);
+                if (!result.getSuccess()){
+                    return;
+                }
+                if (result.getLastPositionOccupiedByEnemyPiece()){
+                    ret.tryAddPath(tempPath);
                     return;
                 }
             }

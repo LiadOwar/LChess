@@ -251,7 +251,8 @@ public class BoardManager {
         return ret;
     }
 
-    public boolean checkIfCanMoveToPosition(PieceMovementPath path, Position position) {
+    public AddPositionToPathResult checkIfCanMoveToPosition(PieceMovementPath path, Position position) {
+        AddPositionToPathResult result = new AddPositionToPathResult();
         Position startPosition = path.getPathStartingPosition(path);
 
         Tile startMovementTile = getTileFromPosition(board, startPosition);
@@ -261,19 +262,28 @@ public class BoardManager {
 
         if (!validatePawnMove(path, startPieceState, destinationTile, destinationPieceState))
         {
-            return false;
+            result.setSuccess(false);
+
         }
-
-        if (destinationPieceState != null){
+        else if (destinationPieceState != null){
             if (canAttack(startPieceState, destinationPieceState)){
-
-                return true;
+                if (result.getLastPositionOccupiedByEnemyPiece()){
+                    result.setSuccess(false);
+                    result.setLastPositionOccupiedByEnemyPiece(false);
+                }
+                else {
+                    result.setSuccess(true);
+                    result.setLastPositionOccupiedByEnemyPiece(true);
+                }
             }
             else {
-                return false;
+                result.setSuccess(false);
             }
         }
-        return true;
+        else {
+            result.setSuccess(true);
+        }
+        return result;
 
     }
 

@@ -37,9 +37,15 @@ public class TurretModel extends PieceModel {
             int tempYpos = origin.getPosition().getyPos();
             Position currentPosition = new Position(tempXpos, tempYpos);
 
+            AddPositionToPathResult result;
             for (int j = 0; j <= i; j++) {
                 currentPosition = PieceMovmentUtils.moveForward(currentPosition, turretState.getColor(), 1);
-                if (!pathManager.tryAddPositionToPath(tempPath, currentPosition)) {
+                result = pathManager.tryAddPositionToPath(tempPath, currentPosition);
+                if (!result.getSuccess()){
+                    return;
+                }
+                if (result.getLastPositionOccupiedByEnemyPiece()){
+                    ret.tryAddPath(tempPath);
                     return;
                 }
             }
@@ -54,9 +60,15 @@ public class TurretModel extends PieceModel {
             int tempYpos = origin.getPosition().getyPos();
             Position currentPosition = new Position(tempXpos, tempYpos);
 
+            AddPositionToPathResult result;
             for (int j = 0; j <= i; j++) {
                 currentPosition = PieceMovmentUtils.moveBack(currentPosition, turretState.getColor(), 1);
-                if (!pathManager.tryAddPositionToPath(tempPath, currentPosition)) {
+                result = pathManager.tryAddPositionToPath(tempPath, currentPosition);
+                if (!result.getSuccess()){
+                    return;
+                }
+                if (result.getLastPositionOccupiedByEnemyPiece()){
+                    ret.tryAddPath(tempPath);
                     return;
                 }
             }
@@ -71,9 +83,15 @@ public class TurretModel extends PieceModel {
             int tempYpos = origin.getPosition().getyPos();
             Position currentPosition = new Position(tempXpos, tempYpos);
 
+            AddPositionToPathResult result;
             for (int j = 0; j <= i; j++) {
                 currentPosition = PieceMovmentUtils.moveLeft(currentPosition, turretState.getColor(), 1);
-                if (!pathManager.tryAddPositionToPath(tempPath, currentPosition)) {
+                result = pathManager.tryAddPositionToPath(tempPath, currentPosition);
+                if (!result.getSuccess()){
+                    return;
+                }
+                if (result.getLastPositionOccupiedByEnemyPiece()){
+                    ret.tryAddPath(tempPath);
                     return;
                 }
             }
@@ -88,9 +106,15 @@ public class TurretModel extends PieceModel {
             int tempYpos = origin.getPosition().getyPos();
             Position currentPosition = new Position(tempXpos, tempYpos);
 
+            AddPositionToPathResult result;
             for (int j = 0; j <= i; j++) {
                 currentPosition = PieceMovmentUtils.moveRight(currentPosition, turretState.getColor(), 1);
-                if (!pathManager.tryAddPositionToPath(tempPath, currentPosition)) {
+                result = pathManager.tryAddPositionToPath(tempPath, currentPosition);
+                if (!result.getSuccess()){
+                    return;
+                }
+                if (result.getLastPositionOccupiedByEnemyPiece()){
+                    ret.tryAddPath(tempPath);
                     return;
                 }
             }

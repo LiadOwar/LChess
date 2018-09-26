@@ -39,7 +39,7 @@ public class PawnModel extends PieceModel {
         Position currentPosition = new Position(tempXpos, tempYpos);
 
         currentPosition  = PieceMovmentUtils.moveForward(currentPosition, pawnState.getColor(), 1);
-        if (!pathManager.tryAddPositionToPath(tempPath, currentPosition)){
+        if (!pathManager.tryAddPositionToPath(tempPath, currentPosition).getSuccess()){
             return;
         }
 
@@ -58,7 +58,7 @@ public class PawnModel extends PieceModel {
 
             for (int j = 0 ; j <= i ; j++){
                 currentPosition  = PieceMovmentUtils.moveForward(currentPosition, pawnState.getColor(), 1);
-                if (!pathManager.tryAddPositionToPath(tempPath, currentPosition)){
+                if (!pathManager.tryAddPositionToPath(tempPath, currentPosition).getSuccess()){
                     return;
                 }
             }
@@ -74,7 +74,7 @@ public class PawnModel extends PieceModel {
         Position currentPosition = new Position(tempXpos, tempYpos);
 
         currentPosition  = PieceMovmentUtils.moveDiagonalUpRight(currentPosition, pawnState.getColor(), 1);
-        if (!pathManager.tryAddPositionToPath(tempPath, currentPosition)){
+        if (!pathManager.tryAddPositionToPath(tempPath, currentPosition).getSuccess()){
             return;
         }
 
@@ -89,7 +89,7 @@ public class PawnModel extends PieceModel {
         Position currentPosition = new Position(tempXpos, tempYpos);
 
         currentPosition  = PieceMovmentUtils.moveDiagonalUpLeft(currentPosition, pawnState.getColor(), 1);
-        if (!pathManager.tryAddPositionToPath(tempPath, currentPosition)){
+        if (!pathManager.tryAddPositionToPath(tempPath, currentPosition).getSuccess()){
             return;
         }
 
