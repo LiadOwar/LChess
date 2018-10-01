@@ -113,6 +113,73 @@ public class TestSpring {
         consoleUI.printBoard(boardManager.getBoard());
     }
 
+    @Test
+    public void canMoveBlockinkKingThreatePieceTest(){
+        String methodName = "isWhiteKingThreatenedTest";
+
+        game.startGame();
+        BoardManager boardManager = game.getBoardManager();
+        Position whitePawnOrigin = new Position('B', 2);
+        Position whitePawnDest = new Position('B', 3);
+
+        Position blackPawnOrigin = new Position('E', 7);
+        Position blackPawnDest = new Position('E', 6);
+
+        Position whitePawnOrigin2 = new Position('B', 3);
+        Position whitePawnDest2 = new Position('B', 4);
+
+        Position blackBishopOrigin = new Position('F', 8);
+        Position blackBishopDest = new Position('B', 4);
+
+        Position whitePawn2Origin = new Position('A', 2);
+        Position whitePawn2Dest = new Position('A', 3);
+
+        Position blackBishopOrigin2 = blackBishopDest;
+        Position blackBishopDest2 = new Position('A', 5);
+
+        Position whitePawnOrigin3 =  new Position('D', 2);;
+        Position whitePawnDest3 = new Position('D', 3);
+
+        Position whiteKingPosition = new Position('E', 1);
+
+
+        game.movePiece(whitePawnOrigin, whitePawnDest);
+        consoleUI.printBoard(boardManager.getBoard());
+        game.movePiece(blackPawnOrigin, blackPawnDest);
+        consoleUI.printBoard(boardManager.getBoard());
+        game.movePiece(whitePawnOrigin2, whitePawnDest2);
+        consoleUI.printBoard(boardManager.getBoard());
+        game.movePiece(blackBishopOrigin, blackBishopDest);
+        consoleUI.printBoard(boardManager.getBoard());
+        game.movePiece(whitePawn2Origin, whitePawn2Dest);
+        consoleUI.printBoard(boardManager.getBoard());
+        game.movePiece(blackBishopOrigin2, blackBishopDest2);
+        consoleUI.printBoard(boardManager.getBoard());
+        game.movePiece(whitePawnOrigin3, whitePawnDest3);
+
+        HashMap<Position, PieceState> expectedBoardPositionMap = TestUtils.getExpectedInitBoardPositionsMap();
+        TestUtils.setExpectedPosition(expectedBoardPositionMap, whitePawnOrigin,whitePawnDest);
+        TestUtils.setExpectedPosition(expectedBoardPositionMap, blackPawnOrigin,blackPawnDest);
+        TestUtils.setExpectedPosition(expectedBoardPositionMap, whitePawnOrigin2, whitePawnDest2);
+        TestUtils.setExpectedPosition(expectedBoardPositionMap, blackBishopOrigin, blackBishopDest);
+        TestUtils.setExpectedPosition(expectedBoardPositionMap, whitePawn2Origin, whitePawn2Dest);
+        TestUtils.setExpectedPosition(expectedBoardPositionMap, blackBishopOrigin2, blackBishopDest2);
+
+
+        KingState whiteKingState = (KingState)(boardManager.getTileFromPosition(whiteKingPosition).getPieceState());
+        if (whiteKingState.isUnderThreat()){
+            logger.printTestFailed(methodName, "White king is under threat as i should not be!");
+        }
+        if (isBoardMetExpectations(methodName, expectedBoardPositionMap)){
+            logger.printTestPass(methodName);
+        }
+        else {
+            logger.printTestFailed(methodName, "tile on board not as expected");
+        }
+        consoleUI.printBoard(boardManager.getBoard());
+    }
+
+
 
     private Boolean isBoardMetExpectations(String methodName, HashMap<Position, PieceState> expectedBoardPositionMap) {
         Board board = game.getBoardManager().getBoard();
@@ -127,12 +194,11 @@ public class TestSpring {
 
     private static Boolean compareTileWithExpectation(Tile tile, HashMap<Position, PieceState> expectedInitBoardPositionMap){
         String methodName = "compareTileWithExpectation";
-        Boolean tileIsOccupide = tile.getOccupide();
         PieceState tilePieceState = tile.getPieceState();
         Position tilePosition = tile.getPosition();
 
         PieceState expectedPieceState = expectedInitBoardPositionMap.get(tilePosition);
-        if (tileIsOccupide == false){
+        if (tilePieceState == null){
             if (expectedPieceState == null){
                 return true;
             }

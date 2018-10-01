@@ -7,9 +7,9 @@ import com.lchess.engine.piece.services.PieceMovementManager;
 import com.lchess.engine.piece.services.PieceMovementManagerImpl;
 import com.lchess.engine.piece.view.PieceColorEnum;
 import com.lchess.engine.piece.view.PieceTypeEnum;
-import javafx.geometry.Pos;
 import org.springframework.stereotype.Component;
 
+import javax.print.attribute.standard.Destination;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -138,16 +138,37 @@ public class BoardManager {
             return false;
         }
 
-        //Check if friendlyKing will be underThreate
 
+        if (isOwnKingUnderThreat(pieceState.getColor())) {
+
+        }
+
+        if (tryMovePieceRevertIfCannotPerform(originTile, destinationTile, pieceState) == false){
+            return  false;
+        }
+        //Check if move will result threat enemy king
+        getPieceWhoThreatsKing();
+        return true;
+    }
+
+    private Boolean tryMovePieceRevertIfCannotPerform(Tile originTile, Tile destinationTile, PieceState pieceState) {
+        Boolean ret= true;
+        Tile originalDestinationTile = destinationTile;
+        Tile originalOrginTile = originTile;
+        getPieceWhoThreatsKing();
         movePieceToDestination(originTile, pieceState, destinationTile);
         if (pieceState.getPieceType() == PieceTypeEnum.PAWN){
             PawnState pawnState = (PawnState)pieceState;
             pawnState.setFirstMove(false);
         }
-        //Check if move will result threat enemy king
+        if (isOwnKingUnderThreat(pieceState.getColor())){
+            System.out.println("detect king under threat");
+            movePieceToDestination(originalDestinationTile, originalDestinationTile.getPieceState(), originalOrginTile);
+            ret =  false;
+
+        }
         getPieceWhoThreatsKing();
-        return true;
+        return ret;
     }
 
     public Tile getPieceWhoThreatsKing() {
@@ -167,10 +188,10 @@ public class BoardManager {
     }
 
     private Tile getWhitePieceTileWithPathToBlackKing(ArrayList<Tile> allLiveWhitePiecesByColor, Tile blackKingTile) {
+        KingState enemyKingState = (KingState) blackKingTile.getPieceState();
         for (Tile tile : allLiveWhitePiecesByColor){
             PieceMovementPath pathToEnemyKing = getPathToDestination(tile.getPosition(), blackKingTile.getPosition());
             if (pathToEnemyKing != null){
-                KingState enemyKingState = (KingState) blackKingTile.getPieceState();
                 System.out.println(String.format("[%s] king is threatened by [%s] [%s] at [%s]", enemyKingState.getColor(), tile.getPieceState().getColor(), tile.getPieceState().getPieceType(), tile.getPosition()));
                 enemyKingState.setUnderThreat(true);
                 tile.getPieceState().setThreatEnemyKing(true);
@@ -180,14 +201,15 @@ public class BoardManager {
                 tile.getPieceState().setThreatEnemyKing(false);
             }
         }
+        enemyKingState.setUnderThreat(false);
         return null;
     }
 
     private Tile getBlackPieceTileWithPathToWhiteKing(ArrayList<Tile> allLiveBlackPiecesByColor, Tile blackKingTile) {
+        KingState enemyKingState = (KingState) blackKingTile.getPieceState();
         for (Tile tile : allLiveBlackPiecesByColor){
             PieceMovementPath pathToEnemyKing = getPathToDestination(tile.getPosition(), blackKingTile.getPosition());
             if (pathToEnemyKing != null){
-                KingState enemyKingState = (KingState) blackKingTile.getPieceState();
                 System.out.println(String.format("[%s] king is threatened by [%s] [%s] at [%s]", enemyKingState.getColor(), tile.getPieceState().getColor(), tile.getPieceState().getPieceType(), tile.getPosition()));
                 enemyKingState.setUnderThreat(true);
                 tile.getPieceState().setThreatEnemyKing(true);
@@ -197,6 +219,7 @@ public class BoardManager {
                 tile.getPieceState().setThreatEnemyKing(false);
             }
         }
+        enemyKingState.setUnderThreat(false);
         return null;
     }
 
@@ -283,8 +306,19 @@ public class BoardManager {
         else {
             result.setSuccess(true);
         }
+
         return result;
 
+    }
+
+    public boolean isOwnKingUnderThreat(PieceColorEnum color) {
+        getPieceWhoThreatsKing();
+        Tile kingTile = getKingTile(color);
+        KingState kingState = (KingState) (kingTile.getPieceState());
+        if (kingState.isUnderThreat()){
+            return true;
+        }
+        return false;
     }
 
     private boolean validatePawnMove(PieceMovementPath path, PieceState startPieceState, Tile destinationTile, PieceState destinationPieceState) {
@@ -299,7 +333,6 @@ public class BoardManager {
 
 
                 if (xPos == borderedXpos){
-                    System.out.println("PAWN cannot attack forward");
                     return false;
                 }
                 else if (canAttack(startPieceState, destinationPieceState)){
@@ -319,7 +352,6 @@ public class BoardManager {
                 }
             }
             if (xPos != borderedXpos){
-                System.out.println(String.format("PAWN cannot move diagonally without attack: from, [%s, %s] to [%s, %s]", xPos, yPos, borderedXpos ,borderedYpos ));
                 return false;
             }
 
@@ -331,7 +363,6 @@ public class BoardManager {
         destinationTile.setPieceState(startPieceState);
         System.out.println(String.format("REMOVE [%s, %s]", startPieceState.getPieceType(), startPieceState.getColor()));
         startMovementTile.setPieceState(null);
-        startMovementTile.setOccupide(false);
     }
 
     private Boolean canAttack(PieceState currentTurnPieceState, PieceState destinationPieceState) {
@@ -464,8 +495,6 @@ public class BoardManager {
     private static void movePieceToDestination(Tile originTile, PieceState pieceState, Tile destinationTile) {
 
         originTile.setPieceState(null);
-        originTile.setOccupide(false);
-        destinationTile.setOccupide(true);
         destinationTile.setPieceState(pieceState);
     }
 

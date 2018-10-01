@@ -91,7 +91,7 @@ public class ConsoleUI extends UI {
     private String printTile(Tile tile) {
         StringBuilder tileFormate = new StringBuilder();
         tileFormate.append("[");
-        if (tile.getOccupide() == false){
+        if (tile.getPieceState() == null){
             tileFormate.append(" ");
         }
         else {

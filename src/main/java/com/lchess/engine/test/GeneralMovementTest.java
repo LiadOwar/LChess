@@ -141,10 +141,6 @@ public class GeneralMovementTest {
             return false;
         }
 
-        if (destinationTile.getOccupide() == false){
-            logger.printTestFailed(methodName, "destination is not occupied by piece");
-            return false;
-        }
         if (!destinationTile.getPieceState().equals(pawnState) ){
             logger.printTestFailed(methodName, "destination is occupied but not by the right piece state");
             return false;
@@ -153,10 +149,7 @@ public class GeneralMovementTest {
             logger.printTestFailed(methodName, "origin still holds the original piece");
             return false;
         }
-        if (originTile.getOccupide() == true ){
-            logger.printTestFailed(methodName, "origin is still occupied ");
-            return false;
-        }
+
         logger.printTestPass(methodName);
         return true;
     }
@@ -175,7 +168,7 @@ public class GeneralMovementTest {
             return false;
         }
 
-        if (destinationTile.getOccupide() == true){
+        if (destinationTile.getPieceState() == null){
             logger.printTestFailed(methodName, "destination is illegally occupied ");
             return false;
         }
@@ -187,7 +180,7 @@ public class GeneralMovementTest {
             logger.printTestFailed(methodName, "origin is not holding the piece");
             return false;
         }
-        if (originTile.getOccupide() == false ){
+        if (originTile.getPieceState() == null ){
             logger.printTestFailed(methodName, "origin is not holding anything");
             return false;
         }

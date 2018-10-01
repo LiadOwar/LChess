@@ -87,7 +87,6 @@ public class TestUtils {
         int positionToInt = boardManager.convertPositionToInt(position);
 
         Tile tile = tiles[positionToInt];
-        tile.setOccupide(true);
         tile.setPieceState(pawnState);
         return pawnState;
     }
@@ -171,9 +170,7 @@ public class TestUtils {
         Tile destTile = game.getBoardManager().getTileFromPosition(destination);
         PieceState originPieceState = originTile.getPieceState();
         destTile.setPieceState(originPieceState);
-        destTile.setOccupide(true);
         originTile.setPieceState(null);
-        originTile.setOccupide(false);
     }
 
 

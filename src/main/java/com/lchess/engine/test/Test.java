@@ -50,9 +50,7 @@ public class Test {
         Tile currentTile = boardManager.getTileFromPosition(board, position1);
 
         currentTile.setPieceState(prevTile.getPieceState());
-        currentTile.setOccupide(true);
         prevTile.setPieceState(null);
-        prevTile.setOccupide(false);
 
         TestUtils.printTurnNum(1);
         ui.printBoard(board);
@@ -68,11 +66,9 @@ public class Test {
         Tile currentTile = boardManager.getTileFromPosition(board, position1);
 
         currentTile.setPieceState(prevTile.getPieceState());
-        currentTile.setOccupide(true);
         prevTile.setPieceState(null);
-        prevTile.setOccupide(false);
 
-        if (currentTile.getOccupide() == false){
+        if (currentTile.getPieceState() == null){
             return false;
         }
         if (prevTile.getPieceState() != null){

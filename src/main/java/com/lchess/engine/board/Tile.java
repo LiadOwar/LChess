@@ -9,7 +9,6 @@ public class Tile {
 
     private Position position;
 
-    private Boolean isOccupide = false;
 
     private PieceState pieceState;
 
@@ -25,26 +24,16 @@ public class Tile {
         this.position = position;
     }
 
-    public Boolean getOccupide() {
-        return isOccupide;
-    }
-
-    public void setOccupide(Boolean occupide) {
-        isOccupide = occupide;
-    }
-
     public PieceState getPieceState() {
 
         return pieceState;
     }
 
     public void setPieceState(PieceState pieceState) {
-        isOccupide = true;
         this.pieceState = pieceState;
     }
 
     public void removePiece(Tile tile){
-        isOccupide = false;
         pieceState = null;
     }
 }

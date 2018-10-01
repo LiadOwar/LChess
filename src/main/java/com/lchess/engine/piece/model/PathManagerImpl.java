@@ -2,6 +2,7 @@ package com.lchess.engine.piece.model;
 
 import com.lchess.engine.board.*;
 import com.lchess.engine.piece.model.pojo.PieceMovementPath;
+import com.lchess.engine.piece.view.PieceColorEnum;
 
 /**
  * Created by liad on 31/08/2018.
@@ -24,6 +25,7 @@ public class PathManagerImpl implements PathManager {
             result = boardManager.checkIfCanMoveToPosition(pieceMovementPath, position);
             if (result.getSuccess()){
                 pieceMovementPath.addPositionToPath(position);
+
             }
         }
         return result;

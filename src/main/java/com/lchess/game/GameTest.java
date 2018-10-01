@@ -27,12 +27,11 @@ public class GameTest {
 
     private static Boolean compareTileWithExpectation(Tile tile, HashMap<Position, PieceState> expectedInitBoardPositionMap){
         String methodName = "compareTileWithExpectation";
-        Boolean tileIsOccupide = tile.getOccupide();
         PieceState tilePieceState = tile.getPieceState();
         Position tilePosition = tile.getPosition();
 
         PieceState expectedPieceState = expectedInitBoardPositionMap.get(tilePosition);
-        if (tileIsOccupide == false){
+        if (tilePieceState == null){
             if (expectedPieceState == null){
                 return true;
             }
