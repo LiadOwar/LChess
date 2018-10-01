@@ -59,4 +59,18 @@ public class GameController {
     public void tryMovePiece(@RequestBody PieceMovementClient pieceMovementClient){
        game.movePiece(PositionConvertor.convertClientPosition(pieceMovementClient.getStartPosition()),PositionConvertor.convertClientPosition(pieceMovementClient.getDestPosition()));
     }
+
+    @CrossOrigin
+    @RequestMapping("/game/saveState")
+    public void saveState(){
+        game.saveState();
+        System.out.println("Saving state");
+    }
+
+    @CrossOrigin
+    @RequestMapping("/game/loadState")
+    public void loadState(){
+        game.loadState();
+        System.out.println("Load state");
+    }
 }

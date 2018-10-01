@@ -1,5 +1,7 @@
 package com.lchess.engine.piece.model;
 
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.lchess.engine.piece.view.Piece;
 import com.lchess.engine.piece.view.PieceColorEnum;
 import com.lchess.engine.piece.view.PieceTypeEnum;
@@ -7,6 +9,10 @@ import com.lchess.engine.piece.view.PieceTypeEnum;
 /**
  * Created by liad on 31/08/2018.
  */
+@JsonTypeInfo(
+        use = JsonTypeInfo.Id.NAME,
+        include = JsonTypeInfo.As.PROPERTY,
+        property = "type")
 public abstract class PieceState {
 
     private Boolean isAlive;
@@ -46,6 +52,8 @@ public abstract class PieceState {
         return pieceType;
     }
 
+    public PieceState() {
+    }
 
     @Override
     public boolean equals(Object o) {

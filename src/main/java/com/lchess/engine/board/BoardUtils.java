@@ -13,8 +13,8 @@ public class BoardUtils {
 
     public static Boolean isOutOfBoard(Position pos){
         Boolean ret = false;
-        char xPos = pos.getPosition().getxPos();
-        int yPos = pos.getPosition().getyPos();
+        char xPos = pos.getCoordinate().getxPos();
+        int yPos = pos.getCoordinate().getyPos();
         if (xPos < 65 || xPos > 72){
             ret = true;
         }

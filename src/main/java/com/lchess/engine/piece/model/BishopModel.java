@@ -33,8 +33,8 @@ public class BishopModel extends PieceModel {
 
         for (int i =0 ; i < 7; i++){
             PieceMovementPath tempPath = new PieceMovementPath(origin);
-            char tempXpos = origin.getPosition().getxPos();
-            int tempYpos = origin.getPosition().getyPos();
+            char tempXpos = origin.getCoordinate().getxPos();
+            int tempYpos = origin.getCoordinate().getyPos();
             Position currentPosition = new Position(tempXpos, tempYpos);
             AddPositionToPathResult result;
             for (int j = 0 ; j <= i ; j++){
@@ -55,8 +55,8 @@ public class BishopModel extends PieceModel {
     private void generateDiagonalDownLeftPath(Position origin, BishopState bishopState, PieceMovementInfo ret) {
         for (int i =0 ; i < 7; i++){
             PieceMovementPath tempPath = new PieceMovementPath(origin);
-            char tempXpos = origin.getPosition().getxPos();
-            int tempYpos = origin.getPosition().getyPos();
+            char tempXpos = origin.getCoordinate().getxPos();
+            int tempYpos = origin.getCoordinate().getyPos();
             Position currentPosition = new Position(tempXpos, tempYpos);
 
             AddPositionToPathResult result;
@@ -78,8 +78,8 @@ public class BishopModel extends PieceModel {
     private void generateDiagonalDownRightPath(Position origin, BishopState bishopState, PieceMovementInfo ret) {
         for (int i =0 ; i < 7; i++){
             PieceMovementPath tempPath = new PieceMovementPath(origin);
-            char tempXpos = origin.getPosition().getxPos();
-            int tempYpos = origin.getPosition().getyPos();
+            char tempXpos = origin.getCoordinate().getxPos();
+            int tempYpos = origin.getCoordinate().getyPos();
             Position currentPosition = new Position(tempXpos, tempYpos);
 
             AddPositionToPathResult result;
@@ -101,8 +101,8 @@ public class BishopModel extends PieceModel {
     private void generateDiagonalUpRightPath(Position origin, BishopState bishopState, PieceMovementInfo ret) {
         for (int i =0 ; i < 7; i++){
             PieceMovementPath tempPath = new PieceMovementPath(origin);
-            char tempXpos = origin.getPosition().getxPos();
-            int tempYpos = origin.getPosition().getyPos();
+            char tempXpos = origin.getCoordinate().getxPos();
+            int tempYpos = origin.getCoordinate().getyPos();
             Position currentPosition = new Position(tempXpos, tempYpos);
 
             AddPositionToPathResult result;

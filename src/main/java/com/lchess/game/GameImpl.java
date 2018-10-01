@@ -1,13 +1,24 @@
 package com.lchess.game;
 
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.lchess.engine.board.Board;
 import com.lchess.engine.board.BoardManager;
 import com.lchess.engine.board.Position;
 import com.lchess.engine.board.Tile;
-import com.lchess.engine.piece.model.PieceState;
+import com.lchess.engine.piece.model.*;
 import com.lchess.engine.piece.view.PieceColorEnum;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import java.io.File;
+import java.io.IOException;
+import java.nio.charset.Charset;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.Arrays;
+import java.util.List;
 
 
 /**
@@ -34,6 +45,38 @@ public class GameImpl implements Game {
 
     public BoardManager getBoardManager() {
         return boardManager;
+    }
+
+    @Override
+    public void saveState() {
+        Board board = boardManager.getBoard();
+        convertBoardToJSON(board);
+
+    }
+
+    @Override
+    public void loadState() {
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.registerSubtypes(PawnState.class, KingState.class, BishopState.class, TurretState.class);
+
+        mapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
+
+        try {
+            Board board = mapper.readValue(new File("lastSavedState.json"), Board.class);
+            boardManager.setBoard(board);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void convertBoardToJSON(Board board) {
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.registerSubtypes(PawnState.class, KingState.class, BishopState.class, TurretState.class);
+        try {
+            mapper.writeValue(new File("lastSavedState.json"), board);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override

@@ -6,10 +6,8 @@ package com.lchess.engine.board;
 public class Board {
     private Tile[] tiles;
 
-
     public Board() {
         tiles = new Tile[64];
-
     }
 
     public Tile[] getTiles() {

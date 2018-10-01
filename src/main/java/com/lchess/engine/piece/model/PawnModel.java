@@ -34,8 +34,8 @@ public class PawnModel extends PieceModel {
     private void generateMoveForward1Path(Position origin, PawnState pawnState, PieceMovementInfo ret) {
 
         PieceMovementPath tempPath = new PieceMovementPath(origin);
-        char tempXpos = origin.getPosition().getxPos();
-        int tempYpos = origin.getPosition().getyPos();
+        char tempXpos = origin.getCoordinate().getxPos();
+        int tempYpos = origin.getCoordinate().getyPos();
         Position currentPosition = new Position(tempXpos, tempYpos);
 
         currentPosition  = PieceMovmentUtils.moveForward(currentPosition, pawnState.getColor(), 1);
@@ -52,8 +52,8 @@ public class PawnModel extends PieceModel {
         }
         for (int i =0 ; i < 2; i++){
             PieceMovementPath tempPath = new PieceMovementPath(origin);
-            char tempXpos = origin.getPosition().getxPos();
-            int tempYpos = origin.getPosition().getyPos();
+            char tempXpos = origin.getCoordinate().getxPos();
+            int tempYpos = origin.getCoordinate().getyPos();
             Position currentPosition = new Position(tempXpos, tempYpos);
 
             for (int j = 0 ; j <= i ; j++){
@@ -69,8 +69,8 @@ public class PawnModel extends PieceModel {
     private void generateMoveAttackRightPath(Position origin, PawnState pawnState, PieceMovementInfo ret) {
 
         PieceMovementPath tempPath = new PieceMovementPath(origin);
-        char tempXpos = origin.getPosition().getxPos();
-        int tempYpos = origin.getPosition().getyPos();
+        char tempXpos = origin.getCoordinate().getxPos();
+        int tempYpos = origin.getCoordinate().getyPos();
         Position currentPosition = new Position(tempXpos, tempYpos);
 
         currentPosition  = PieceMovmentUtils.moveDiagonalUpRight(currentPosition, pawnState.getColor(), 1);
@@ -84,8 +84,8 @@ public class PawnModel extends PieceModel {
     private void generateMoveAttackLeftPath(Position origin, PawnState pawnState, PieceMovementInfo ret) {
 
         PieceMovementPath tempPath = new PieceMovementPath(origin);
-        char tempXpos = origin.getPosition().getxPos();
-        int tempYpos = origin.getPosition().getyPos();
+        char tempXpos = origin.getCoordinate().getxPos();
+        int tempYpos = origin.getCoordinate().getyPos();
         Position currentPosition = new Position(tempXpos, tempYpos);
 
         currentPosition  = PieceMovmentUtils.moveDiagonalUpLeft(currentPosition, pawnState.getColor(), 1);

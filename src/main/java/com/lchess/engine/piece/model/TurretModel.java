@@ -33,8 +33,8 @@ public class TurretModel extends PieceModel {
     private void generateForwardPath(Position origin, TurretState turretState, PieceMovementInfo ret) {
         for (int i = 0; i < 7; i++) {
             PieceMovementPath tempPath = new PieceMovementPath(origin);
-            char tempXpos = origin.getPosition().getxPos();
-            int tempYpos = origin.getPosition().getyPos();
+            char tempXpos = origin.getCoordinate().getxPos();
+            int tempYpos = origin.getCoordinate().getyPos();
             Position currentPosition = new Position(tempXpos, tempYpos);
 
             AddPositionToPathResult result;
@@ -56,8 +56,8 @@ public class TurretModel extends PieceModel {
     private void generateBackwardsPath(Position origin, TurretState turretState, PieceMovementInfo ret) {
         for (int i = 0; i < 7; i++) {
             PieceMovementPath tempPath = new PieceMovementPath(origin);
-            char tempXpos = origin.getPosition().getxPos();
-            int tempYpos = origin.getPosition().getyPos();
+            char tempXpos = origin.getCoordinate().getxPos();
+            int tempYpos = origin.getCoordinate().getyPos();
             Position currentPosition = new Position(tempXpos, tempYpos);
 
             AddPositionToPathResult result;
@@ -79,8 +79,8 @@ public class TurretModel extends PieceModel {
     private void generateLeftPath(Position origin, TurretState turretState, PieceMovementInfo ret) {
         for (int i = 0; i < 7; i++) {
             PieceMovementPath tempPath = new PieceMovementPath(origin);
-            char tempXpos = origin.getPosition().getxPos();
-            int tempYpos = origin.getPosition().getyPos();
+            char tempXpos = origin.getCoordinate().getxPos();
+            int tempYpos = origin.getCoordinate().getyPos();
             Position currentPosition = new Position(tempXpos, tempYpos);
 
             AddPositionToPathResult result;
@@ -102,8 +102,8 @@ public class TurretModel extends PieceModel {
     private void generateRighPath(Position origin, TurretState turretState, PieceMovementInfo ret) {
         for (int i = 0; i < 7; i++) {
             PieceMovementPath tempPath = new PieceMovementPath(origin);
-            char tempXpos = origin.getPosition().getxPos();
-            int tempYpos = origin.getPosition().getyPos();
+            char tempXpos = origin.getCoordinate().getxPos();
+            int tempYpos = origin.getCoordinate().getyPos();
             Position currentPosition = new Position(tempXpos, tempYpos);
 
             AddPositionToPathResult result;

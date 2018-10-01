@@ -14,5 +14,6 @@ public interface Game {
     void movePiece(Position origin, Position destination);
     PieceColorEnum getCurrentTurn();
     BoardManager getBoardManager();
-
+    void saveState();
+    void loadState();
 }

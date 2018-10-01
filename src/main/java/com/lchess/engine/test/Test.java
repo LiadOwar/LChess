@@ -6,13 +6,11 @@ import com.lchess.common.Logger;
 import com.lchess.engine.board.*;
 import com.lchess.engine.piece.model.*;
 import com.lchess.engine.piece.view.PieceColorEnum;
-import com.lchess.engine.piece.view.PieceTypeEnum;
 import com.lchess.engine.test.utils.TestUtils;
 import com.lchess.game.Game;
 import com.lchess.game.GameImpl;
 
 import java.util.HashMap;
-import java.util.Map;
 
 /**
  * Created by liad on 31/08/2018.
@@ -32,8 +30,8 @@ public class Test {
             Position position = tile.getPosition();
             Integer converted = boardManager.convertPositionToInt(position);
             System.out.print(String.format("[%s,%s -> %s]",
-                    position.getPosition().getxPos(), position.getPosition().getyPos(), converted));
-            if (position.getPosition().getxPos() == 'H'){
+                    position.getCoordinate().getxPos(), position.getCoordinate().getyPos(), converted));
+            if (position.getCoordinate().getxPos() == 'H'){
                 System.out.println("");
             }
         }

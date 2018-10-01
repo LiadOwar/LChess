@@ -19,7 +19,7 @@ public class Position {
         this.coordinate = new ChessCoordinate(a.charAt(0), Integer.parseInt(i));
     }
 
-    public ChessCoordinate getPosition() {
+    public ChessCoordinate getCoordinate() {
         return coordinate;
     }
 
@@ -57,7 +57,7 @@ public class Position {
     public int hashCode() {
         return coordinate != null ? coordinate.hashCode() : 0;
     }
-    //    public ChessCoordinate getPosition() throws Exception {
+    //    public ChessCoordinate getCoordinate() throws Exception {
 //        char x = coordinate.getxPos();
 //        int y = coordinate.getyPos();
 //        if (x < 65 || x > 72){

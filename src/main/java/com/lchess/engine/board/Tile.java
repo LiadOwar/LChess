@@ -36,4 +36,7 @@ public class Tile {
     public void removePiece(Tile tile){
         pieceState = null;
     }
+
+    public Tile() {
+    }
 }

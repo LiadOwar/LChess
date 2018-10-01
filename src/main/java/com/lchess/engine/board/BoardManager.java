@@ -9,7 +9,6 @@ import com.lchess.engine.piece.view.PieceColorEnum;
 import com.lchess.engine.piece.view.PieceTypeEnum;
 import org.springframework.stereotype.Component;
 
-import javax.print.attribute.standard.Destination;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -56,12 +55,16 @@ public class BoardManager {
         return board;
     }
 
+    public void setBoard(Board board) {
+        this.board =board;
+    }
+
     private void initBoard(){
         Tile[] tiles = board.getTiles();
         Position position = new Position(new ChessCoordinate('A', 8));
         Tile tile;
-        char xPos = position.getPosition().getxPos();
-        int yPos = position.getPosition().getyPos();
+        char xPos = position.getCoordinate().getxPos();
+        int yPos = position.getCoordinate().getyPos();
         for (int i = 0 ; i < tiles.length; i++){
 
             position = new Position(new ChessCoordinate(xPos, yPos));
@@ -188,6 +191,7 @@ public class BoardManager {
     }
 
     private Tile getWhitePieceTileWithPathToBlackKing(ArrayList<Tile> allLiveWhitePiecesByColor, Tile blackKingTile) {
+        System.out.println(String.format("black king tile [%s]", blackKingTile.getPosition()));
         KingState enemyKingState = (KingState) blackKingTile.getPieceState();
         for (Tile tile : allLiveWhitePiecesByColor){
             PieceMovementPath pathToEnemyKing = getPathToDestination(tile.getPosition(), blackKingTile.getPosition());
@@ -238,7 +242,6 @@ public class BoardManager {
         }
         System.out.println("ERROR. no king was found");
         return null;
-
     }
 
     private static PieceColorEnum getOpositeColor(PieceColorEnum friendlyColor) {
@@ -306,9 +309,7 @@ public class BoardManager {
         else {
             result.setSuccess(true);
         }
-
         return result;
-
     }
 
     public boolean isOwnKingUnderThreat(PieceColorEnum color) {
@@ -325,13 +326,11 @@ public class BoardManager {
         if (startPieceState.getPieceType() == PieceTypeEnum.PAWN){
             PieceColorEnum color = startPieceState.getColor();
             Position position = destinationTile.getPosition();
-            char xPos = position.getPosition().getxPos();
-            char borderedXpos = path.getPath().get(path.getPath().size() - 1).getPosition().getxPos();
-            Integer yPos = position.getPosition().getyPos();
-            Integer borderedYpos = path.getPath().get(path.getPath().size() - 1).getPosition().getyPos();
+            char xPos = position.getCoordinate().getxPos();
+            char borderedXpos = path.getPath().get(path.getPath().size() - 1).getCoordinate().getxPos();
+            Integer yPos = position.getCoordinate().getyPos();
+            Integer borderedYpos = path.getPath().get(path.getPath().size() - 1).getCoordinate().getyPos();
             if (destinationPieceState != null){
-
-
                 if (xPos == borderedXpos){
                     return false;
                 }
@@ -417,8 +416,8 @@ public class BoardManager {
                 position = new Position('A', 7);
                 break;
         }
-        char xPos = position.getPosition().getxPos();
-        int yPos = position.getPosition().getyPos();
+        char xPos = position.getCoordinate().getxPos();
+        int yPos = position.getCoordinate().getyPos();
         for (int i = 0 ; i < 8 ; i++){
             PawnState pawnState = new PawnState(colorEnum);
             position.setCoordinate(xPos, yPos);
@@ -505,8 +504,8 @@ public class BoardManager {
 
     private static void initPositionConvertor() {
         Position position = new Position(new ChessCoordinate('A', 8));
-        char xPos = position.getPosition().getxPos();
-        int yPos = position.getPosition().getyPos();
+        char xPos = position.getCoordinate().getxPos();
+        int yPos = position.getCoordinate().getyPos();
         for (int i = 0 ; i < 64 ; i++){
             position = new Position(new ChessCoordinate(xPos, yPos));
             positionIntegerHashMap.put(position, i);

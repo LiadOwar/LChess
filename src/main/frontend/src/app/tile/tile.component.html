@@ -3,6 +3,8 @@
   <button (click) = "startGame()">Start Game</button>
   <button (click) = "getLines()">Refresh</button>
   <button (click) = "getTurn()">Current Turn {{turn}}</button>
+    <button (click) = "saveState()">save state</button>
+    <button (click) = "loadState()">load state</button>
   <button>Position Selected {{originPos}} , {{targetPos}}</button>
   </ul>
   <ng-container *ngFor = "let tile of tiles; let i = index" >

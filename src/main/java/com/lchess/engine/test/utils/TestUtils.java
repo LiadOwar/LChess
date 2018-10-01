@@ -47,7 +47,7 @@ public class TestUtils {
                 logger.errorMsg(methodName, String.format("position [%s] is outOfBoard", pathArray.get(i)));
                 return false;
             }
-            if (!pathArray.get(i).getPosition().equals(otherPathArray.get(i).getPosition())){
+            if (!pathArray.get(i).getCoordinate().equals(otherPathArray.get(i).getCoordinate())){
                 return false;
             }
         }
@@ -78,7 +78,7 @@ public class TestUtils {
     }
 
     private static String getPositionString(Position position){
-        return(String.format("(%s,%s)", position.getPosition().getxPos(), position.getPosition().getyPos()));
+        return(String.format("(%s,%s)", position.getCoordinate().getxPos(), position.getCoordinate().getyPos()));
     }
 
     public static PawnState createPawnOnBoard(Board board, PieceColorEnum colorEnum, Position position){
@@ -146,8 +146,8 @@ public class TestUtils {
     private static void setTestExpectedWhitePawnsOnBoard(HashMap<Position, PieceState> expectedInitBoardPositionMap) {
         Position startPosition = new Position('A', 2);
         for(int i = 0 ; i < 8 ; i++){
-            char xPos = (char)(startPosition.getPosition().getxPos() + i);
-            int yPos = startPosition.getPosition().getyPos();
+            char xPos = (char)(startPosition.getCoordinate().getxPos() + i);
+            int yPos = startPosition.getCoordinate().getyPos();
             Position position = new Position(xPos, yPos);
             expectedInitBoardPositionMap.put(position, new PawnState(PieceColorEnum.WHITE));
         }
@@ -156,8 +156,8 @@ public class TestUtils {
     private static void setTestExcpectedBlackPawnsOnBoard(HashMap<Position, PieceState> expectedInitBoardPositionMap) {
         Position startPosition = new Position('A', 7);
         for(int i = 0 ; i < 8 ; i++){
-            char xPos = (char)(startPosition.getPosition().getxPos() + i);
-            int yPos = startPosition.getPosition().getyPos();
+            char xPos = (char)(startPosition.getCoordinate().getxPos() + i);
+            int yPos = startPosition.getCoordinate().getyPos();
             Position position = new Position(xPos, yPos);
             expectedInitBoardPositionMap.put(position, new PawnState(PieceColorEnum.BLACK));
         }

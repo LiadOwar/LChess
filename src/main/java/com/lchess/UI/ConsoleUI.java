@@ -7,7 +7,6 @@ import com.lchess.engine.piece.view.PieceColorEnum;
 import com.lchess.engine.piece.view.PieceTypeEnum;
 import com.lchess.game.Game;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,12 +26,12 @@ public class ConsoleUI extends UI {
         }
         System.out.println("");
         for(Tile tile : tiles){
-            if (tile.getPosition().getPosition().getxPos() == 'A'){
-                System.out.print(String.format("%s ", tile.getPosition().getPosition().getyPos()));
+            if (tile.getPosition().getCoordinate().getxPos() == 'A'){
+                System.out.print(String.format("%s ", tile.getPosition().getCoordinate().getyPos()));
             }
             printTile(tile);
-            if (tile.getPosition().getPosition().getxPos() == 'H'){
-                System.out.println(String.format(" %s", tile.getPosition().getPosition().getyPos()));
+            if (tile.getPosition().getCoordinate().getxPos() == 'H'){
+                System.out.println(String.format(" %s", tile.getPosition().getCoordinate().getyPos()));
             }
         }
         System.out.print("  ");
@@ -58,14 +57,14 @@ public class ConsoleUI extends UI {
         }
         System.out.println("");
         for(Tile tile : tiles){
-            if (tile.getPosition().getPosition().getxPos() == 'A'){
-                System.out.print(String.format("%s ", tile.getPosition().getPosition().getyPos()));
-                builder.append(String.format("%s ", tile.getPosition().getPosition().getyPos()));
+            if (tile.getPosition().getCoordinate().getxPos() == 'A'){
+                System.out.print(String.format("%s ", tile.getPosition().getCoordinate().getyPos()));
+                builder.append(String.format("%s ", tile.getPosition().getCoordinate().getyPos()));
             }
             builder.append(printTile(tile));
-            if (tile.getPosition().getPosition().getxPos() == 'H'){
-                System.out.println(String.format(" %s", tile.getPosition().getPosition().getyPos()));
-                builder.append(String.format(" %s", tile.getPosition().getPosition().getyPos()));
+            if (tile.getPosition().getCoordinate().getxPos() == 'H'){
+                System.out.println(String.format(" %s", tile.getPosition().getCoordinate().getyPos()));
+                builder.append(String.format(" %s", tile.getPosition().getCoordinate().getyPos()));
             }
         }
         System.out.print("  ");

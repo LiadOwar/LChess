@@ -54,11 +54,11 @@ export class TileComponent {
       });
   }
   movement(post) {
-    console.log(post.position.position.xPos + ',' + post.position.position.yPos);
+    console.log(post.position.coordinate.xPos + ',' + post.position.coordinate.yPos);
     if (this.originPos == null) {
-      this.originPos = post.position.position.xPos + ',' + post.position.position.yPos;
+      this.originPos = post.position.coordinate.xPos + ',' + post.position.coordinate.yPos;
     } else {
-      this.targetPos = post.position.position.xPos + ',' + post.position.position.yPos;
+      this.targetPos = post.position.coordinate.xPos + ',' + post.position.coordinate.yPos;
       this.http.post(this.ROOT_URL + '/game/move', {
         startPosition : this.originPos,
         destPosition : this.targetPos
@@ -88,7 +88,18 @@ export class TileComponent {
     }});
   }
 
+  saveState() {
+      this.http.get(this.ROOT_URL + '/game/saveState', {observe: 'response'})
+        .subscribe(resp => {
+        });
+  }
 
+  loadState() {
+    this.http.get(this.ROOT_URL + '/game/loadState', {observe: 'response'})
+      .subscribe(resp => {
+        this.getAll();
+      });
+  }
 
 
   getLines() {
